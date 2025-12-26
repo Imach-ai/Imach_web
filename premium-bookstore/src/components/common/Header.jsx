@@ -40,8 +40,8 @@ export default function Header() {
         {/* Navigation */}
         <nav className={styles.nav}>
           <Link href="/books" className={styles.navLink}>Books</Link>
-          <Link href="#about" className={styles.navLink}>About</Link>
-          <Link href="#contact" className={styles.navLink}>Contact</Link>
+          <Link href="/about" className={styles.navLink}>About</Link>
+          <Link href="/contact" className={styles.navLink}>Contact</Link>
         </nav>
 
         {/* Right Actions */}
