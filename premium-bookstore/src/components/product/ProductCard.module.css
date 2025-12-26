@@ -15,7 +15,7 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  aspect-ratio: 9 / 12;
+  min-height: 0;
 }
 
 .card:hover {
@@ -72,14 +72,27 @@
 .info {
   margin-bottom: var(--space-lg);
   flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-height: 0;
+  overflow: hidden;
 }
 
 .title {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  margin: 0 0 var(--space-xs) 0;
+  margin: 0;
   line-height: var(--line-height-tight);
   color: var(--color-primary);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .author {
@@ -87,6 +100,13 @@
   color: var(--color-secondary);
   margin: 0;
   font-weight: var(--font-weight-light);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .description {
