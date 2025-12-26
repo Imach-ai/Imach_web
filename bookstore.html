@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub - Online Bookstore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .cart-icon {
+            cursor: pointer;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        nav ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            padding: 0 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 20px;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .banner p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 2rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-bar button:hover {
+            background: #ff5252;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+
+        .filters {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-author {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-description {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .product-rating {
+            color: #ffc107;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .add-to-cart {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #764ba2;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #999;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .cart-items {
+            margin: 1rem 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            text-align: right;
+            color: #667eea;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            background: #764ba2;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">📚 BookHub</div>
+            <div class="cart-icon" onclick="openCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#books">Books</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner -->
+    <div class="banner" id="home">
+        <h1>Welcome to BookHub</h1>
+        <p>Discover Your Next Great Read</p>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for books...">
+            <button>Search</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="books">
+        <h2 style="margin-bottom: 2rem; font-size: 1.8rem;">Featured Books</h2>
+
+        <div class="filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Fiction</button>
+            <button class="filter-btn">Non-Fiction</button>
+            <button class="filter-btn">Science</button>
+            <button class="filter-btn">Biography</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Book 1 -->
+            <div class="product-card">
+                <div class="product-image">📖</div>
+                <div class="product-info">
+                    <div class="product-title">The Great Gatsby</div>
+                    <div class="product-author">F. Scott Fitzgerald</div>
+                    <div class="product-description">A classic American novel exploring wealth, love, and the American Dream.</div>
+                    <div class="product-rating">★★★★★ (1.2k reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$12.99</span>
+                        <button class="add-to-cart" onclick="addToCart('The Great Gatsby', 12.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="product-card">
+                <div class="product-image">📚</div>
+                <div class="product-info">
+                    <div class="product-title">To Kill a Mockingbird</div>
+                    <div class="product-author">Harper Lee</div>
+                    <div class="product-description">A gripping tale of racial injustice and childhood innocence in the American South.</div>
+                    <div class="product-rating">★★★★★ (980 reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$14.99</span>
+                        <button class="add-to-cart" onclick="addToCart('To Kill a Mockingbird', 14.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="product-card">
+                <div class="product-image">📕</div>
+                <div class="product-info">
+                    <div class="product-title">1984</div>
+                    <div class="product-author">George Orwell</div>
+                    <div class="product-description">A dystopian novel about totalitarianism and the manipulation of truth.</div>
+                    <div class="product-rating">★★★★★ (2.1k reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$13.99</span>
+                        <button class="add-to-cart" onclick="addToCart('1984', 13.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 4 -->
+            <div class="product-card">
+                <div class="product-image">📗</div>
+                <div class="product-info">
+                    <div class="product-title">Pride and Prejudice</div>
+                    <div class="product-author">Jane Austen</div>
+                    <div class="product-description">A timeless romance exploring love, society, and personal growth.</div>
+                    <div class="product-rating">★★★★★ (1.8k reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$11.99</span>
+                        <button class="add-to-cart" onclick="addToCart('Pride and Prejudice', 11.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 5 -->
+            <div class="product-card">
+                <div class="product-image">📘</div>
+                <div class="product-info">
+                    <div class="product-title">Sapiens</div>
+                    <div class="product-author">Yuval Noah Harari</div>
+                    <div class="product-description">A fascinating journey through the history of humankind from the Stone Age to modern times.</div>
+                    <div class="product-rating">★★★★☆ (3.2k reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$18.99</span>
+                        <button class="add-to-cart" onclick="addToCart('Sapiens', 18.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 6 -->
+            <div class="product-card">
+                <div class="product-image">📙</div>
+                <div class="product-info">
+                    <div class="product-title">Atomic Habits</div>
+                    <div class="product-author">James Clear</div>
+                    <div class="product-description">Transform your life through small, consistent changes and habit building.</div>
+                    <div class="product-rating">★★★★★ (4.5k reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$16.99</span>
+                        <button class="add-to-cart" onclick="addToCart('Atomic Habits', 16.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 7 -->
+            <div class="product-card">
+                <div class="product-image">📓</div>
+                <div class="product-info">
+                    <div class="product-title">The Catcher in the Rye</div>
+                    <div class="product-author">J.D. Salinger</div>
+                    <div class="product-description">Follow Holden Caulfield's journey through New York City and self-discovery.</div>
+                    <div class="product-rating">★★★★☆ (890 reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$10.99</span>
+                        <button class="add-to-cart" onclick="addToCart('The Catcher in the Rye', 10.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 8 -->
+            <div class="product-card">
+                <div class="product-image">📔</div>
+                <div class="product-info">
+                    <div class="product-title">The Hobbit</div>
+                    <div class="product-author">J.R.R. Tolkien</div>
+                    <div class="product-description">An epic fantasy adventure of Bilbo Baggins and his unexpected journey.</div>
+                    <div class="product-rating">★★★★★ (2.3k reviews)</div>
+                    <div class="product-footer">
+                        <span class="price">$15.99</span>
+                        <button class="add-to-cart" onclick="addToCart('The Hobbit', 15.99)">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About BookHub</h3>
+                <p>Your premier destination for quality books and literature. We provide a curated selection of bestsellers, classics, and new releases.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#books">Shop Books</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Help & FAQs</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Email: info@bookhub.com</li>
+                    <li>Phone: 1-800-BOOKS</li>
+                    <li>Address: 123 Book Street, City, ST 12345</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BookHub. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2>Shopping Cart</h2>
+            <div id="cartItemsContainer" class="cart-items">
+                <div class="empty-cart">Your cart is empty</div>
+            </div>
+            <div class="cart-total" id="cartTotal"></div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartCount();
+            alert(`"${title}" added to cart!`);
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function openCart() {
+            const modal = document.getElementById('cartModal');
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                cartTotal.textContent = '';
+            } else {
+                let itemsHtml = '';
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    itemsHtml += `
+                        <div class="cart-item">
+                            <div>
+                                <div>${item.title}</div>
+                                <div style="color: #667eea; font-weight: bold;">$${item.price.toFixed(2)}</div>
+                            </div>
+                            <button style="background: #ff6b6b; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer;" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    `;
+                    total += item.price;
+                });
+
+                cartItemsContainer.innerHTML = itemsHtml;
+                cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+            }
+
+            modal.style.display = 'block';
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            openCart();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
