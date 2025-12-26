@@ -1,0 +1,120 @@
+/**
+ * Books Page Module Styles
+ * Listing page layout with sidebar and grid
+ */
+
+.pageHeader {
+  padding: var(--space-3xl) var(--space-lg);
+  background-color: var(--color-lighter);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-light);
+  margin: 0 0 var(--space-md) 0;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+}
+
+.subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+.mainContent {
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.productsContainer {
+  min-height: 400px;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-2xl);
+}
+
+.noResults {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-lighter);
+}
+
+.noResults h2 {
+  font-size: var(--font-size-xl);
+  margin: 0 0 var(--space-md) 0;
+  color: var(--color-primary);
+}
+
+.noResults p {
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    top: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageHeader {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader {
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-lg);
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .mainContent {
+    padding: var(--space-lg) var(--space-lg);
+  }
+}
