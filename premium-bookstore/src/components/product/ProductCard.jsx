@@ -39,7 +39,15 @@ export default function ProductCard({ book }) {
       <article className={styles.card}>
         {/* Image/Icon Area */}
         <div className={styles.imageContainer}>
-          <span className={styles.bookIcon}>{book.image}</span>
+          {book.image && book.image.startsWith('/') ? (
+            <img 
+              src={book.image} 
+              alt={`Cover of ${book.title}`}
+              className={styles.bookImage}
+            />
+          ) : (
+            <span className={styles.bookIcon}>{book.image}</span>
+          )}
           
           {discount && (
             <span className={styles.badge} aria-label={`${discount}% discount`}>

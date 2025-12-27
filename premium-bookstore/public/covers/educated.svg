@@ -1,0 +1,17 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5a189a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3c096c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#grad2)"/>
+  <rect x="100" y="150" width="200" height="250" fill="#e0aaff" opacity="0.9" rx="8"/>
+  <line x1="120" y1="180" x2="280" y2="180" stroke="#d8b7ff" stroke-width="3"/>
+  <line x1="120" y1="220" x2="280" y2="220" stroke="#d8b7ff" stroke-width="2" opacity="0.8"/>
+  <line x1="120" y1="260" x2="280" y2="260" stroke="#d8b7ff" stroke-width="2" opacity="0.8"/>
+  <line x1="120" y1="300" x2="280" y2="300" stroke="#d8b7ff" stroke-width="2" opacity="0.8"/>
+  <line x1="120" y1="340" x2="280" y2="340" stroke="#d8b7ff" stroke-width="2" opacity="0.8"/>
+  <text x="200" y="480" font-family="Georgia, serif" font-size="28" fill="#e8e8e8" text-anchor="middle" font-weight="bold">Educated</text>
+  <text x="200" y="520" font-family="Georgia, serif" font-size="16" fill="#a8a8a8" text-anchor="middle">Tara Westover</text>
+</svg>

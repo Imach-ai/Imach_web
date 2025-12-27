@@ -1,0 +1,14 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d3436;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#636e72;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#grad8)"/>
+  <path d="M 200 140 L 240 200 L 200 240 L 160 200 Z" fill="#fdcb6e" opacity="0.8"/>
+  <path d="M 200 260 L 230 320 L 200 360 L 170 320 Z" fill="#fdcb6e" opacity="0.7"/>
+  <text x="200" y="420" font-family="Georgia, serif" font-size="20" fill="#ecf0f1" text-anchor="middle" font-weight="bold">Thinking,</text>
+  <text x="200" y="450" font-family="Georgia, serif" font-size="20" fill="#ecf0f1" text-anchor="middle" font-weight="bold">Fast and Slow</text>
+  <text x="200" y="510" font-family="Georgia, serif" font-size="16" fill="#bdc3c7" text-anchor="middle">Daniel Kahneman</text>
+</svg>

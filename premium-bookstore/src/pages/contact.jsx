@@ -14,6 +14,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from './contact.module.css';
+import InteractiveGradientBackground from '../components/common/InteractiveGradientBackground';
 
 export default function Contact() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -168,6 +169,7 @@ export default function Contact() {
           {/* Video Background */}
           <div className={styles.videoBg}>
             <div className={styles.videoBgOverlay}></div>
+            <InteractiveGradientBackground intensity={0.38} blend="overlay" />
           </div>
 
           <div className={styles.heroContent}>

@@ -1,0 +1,14 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#grad4)"/>
+  <rect x="80" y="120" width="240" height="280" fill="none" stroke="#c0c0c0" stroke-width="3"/>
+  <text x="200" y="240" font-family="Georgia, serif" font-size="20" fill="#90ee90" text-anchor="middle" font-weight="bold">The Silent</text>
+  <text x="200" y="270" font-family="Georgia, serif" font-size="20" fill="#90ee90" text-anchor="middle" font-weight="bold">Patient</text>
+  <line x1="120" y1="290" x2="280" y2="290" stroke="#90ee90" stroke-width="2"/>
+  <text x="200" y="480" font-family="Georgia, serif" font-size="16" fill="#d3d3d3" text-anchor="middle">Alex Michaelides</text>
+</svg>

@@ -145,9 +145,9 @@ export default function CartPage() {
                   </div>
                 )}
 
-                <button className={styles.checkoutBtn}>
+                <Link href="/cart/checkout" className={styles.checkoutBtn}>
                   Proceed to Checkout
-                </button>
+                </Link>
 
                 <p className={styles.guaranteeText}>
                   ✓ Secure checkout · ✓ 30-day guarantee

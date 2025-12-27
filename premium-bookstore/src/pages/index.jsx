@@ -45,11 +45,12 @@ export default function Home() {
             muted 
             loop 
             playsInline
+            preload="metadata"
             className={styles.backgroundVideo}
             poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'%3E%3Crect fill='%23f5f5f5' width='1280' height='720'/%3E%3C/svg%3E"
           >
-            <source src="https://videos.pexels.com/video-files/8545162/8545162-hd_1280_720_30fps.mp4" type="video/mp4" />
-            <source src="https://videos.pexels.com/video-files/8545162/8545162-hd_1280_720_30fps.webm" type="video/webm" />
+            <source src="/4866054-uhd_4096_2160_25fps.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
           <div className={styles.videoBgOverlay}></div>
         </div>

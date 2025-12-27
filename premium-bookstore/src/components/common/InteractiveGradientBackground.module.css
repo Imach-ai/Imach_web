@@ -1,0 +1,41 @@
+.interactiveBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1; /* Above video overlay, below content */
+  --mx: 50%;
+  --my: 40%;
+  --intensity: 0.28;
+  --blend-mode: overlay;
+
+  background:
+    /* Dynamic spotlight following cursor */
+    radial-gradient(
+      1200px circle at var(--mx) var(--my),
+      rgba(99, 102, 241, calc(var(--intensity) * 1.0)) 0%,
+      rgba(99, 102, 241, 0) 50%
+    ),
+    radial-gradient(
+      900px circle at calc(var(--mx) + 12%) calc(var(--my) + 10%),
+      rgba(79, 70, 229, calc(var(--intensity) * 0.85)) 0%,
+      rgba(79, 70, 229, 0) 55%
+    ),
+    radial-gradient(
+      1000px circle at calc(var(--mx) - 14%) calc(var(--my) - 8%),
+      rgba(129, 140, 248, calc(var(--intensity) * 0.7)) 0%,
+      rgba(129, 140, 248, 0) 60%
+    ),
+    /* Cinematic vignette */
+    radial-gradient(1200px circle at 50% 50%, rgba(0,0,0,0.12), rgba(0,0,0,0) 55%),
+    linear-gradient(135deg, rgba(255,255,255,0.7), rgba(249,250,251,0.7));
+
+  mix-blend-mode: var(--blend-mode);
+  will-change: transform, background;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -1.5%, 0) scale(1.015); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}

@@ -1,0 +1,13 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5252;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#grad7)"/>
+  <rect x="90" y="130" width="220" height="280" fill="#fff3e0" opacity="0.95" rx="8"/>
+  <text x="200" y="210" font-family="Georgia, serif" font-size="28" fill="#d32f2f" text-anchor="middle" font-weight="bold">Circe</text>
+  <circle cx="200" cy="320" r="35" fill="#d32f2f" opacity="0.7"/>
+  <text x="200" y="480" font-family="Georgia, serif" font-size="18" fill="#ffebee" text-anchor="middle">Madeline Miller</text>
+</svg>

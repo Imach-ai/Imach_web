@@ -1,0 +1,15 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad12" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff69b4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff1493;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#grad12)"/>
+  <circle cx="200" cy="200" r="60" fill="#ffffff" opacity="0.9"/>
+  <text x="200" y="210" font-family="Arial, sans-serif" font-size="36" fill="#ff1493" text-anchor="middle" font-weight="bold">F</text>
+  <text x="200" y="380" font-family="Georgia, serif" font-size="24" fill="#ffffff" text-anchor="middle" font-weight="bold">The Subtle Art</text>
+  <text x="200" y="415" font-family="Georgia, serif" font-size="24" fill="#ffffff" text-anchor="middle" font-weight="bold">of Not Giving</text>
+  <text x="200" y="450" font-family="Georgia, serif" font-size="24" fill="#ffffff" text-anchor="middle" font-weight="bold">a F*ck</text>
+  <text x="200" y="520" font-family="Georgia, serif" font-size="16" fill="#ffe4e1" text-anchor="middle">Mark Manson</text>
+</svg>

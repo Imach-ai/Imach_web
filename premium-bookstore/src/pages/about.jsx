@@ -14,6 +14,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import styles from './about.module.css';
+import InteractiveGradientBackground from '../components/common/InteractiveGradientBackground';
 
 export default function About() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -98,6 +99,7 @@ export default function About() {
               <source src="/4866054-uhd_4096_2160_25fps.mp4" type="video/webm" />
             </video>
             <div className={styles.videoBgOverlay}></div>
+            <InteractiveGradientBackground intensity={0.35} blend="overlay" />
           </div>
 
           <div className={styles.heroContent}>

@@ -43,13 +43,8 @@ export default function Header() {
 
         {/* Right Actions */}
         <div className={styles.actions}>
-          {/* Login */}
-          <Link href="/auth/login" className={styles.authLink}>
-            Login
-          </Link>
-
           {/* Cart */}
-          <Link href="/cart" className={styles.cartButton}>
+          <Link href="/cart/checkout" className={styles.cartButton}>
             <span className={styles.cartIcon}>🛒</span>
             {itemCount > 0 && (
               <span 
