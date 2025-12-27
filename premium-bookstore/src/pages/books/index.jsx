@@ -74,7 +74,7 @@ export default function BooksPage() {
     <>
       <Head>
         <title>
-          {search ? `Search: ${search}` : 'Books'} | PageTurner
+          {search ? `Search: ${search}` : 'Books'} | Bokly
         </title>
         <meta name="description" content="Browse our collection of curated books" />
       </Head>

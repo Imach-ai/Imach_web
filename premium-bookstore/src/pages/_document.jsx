@@ -10,7 +10,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <meta name="description" content="PageTurner - Premium European-style bookstore with curated collections and exceptional design." />
+        <meta name="description" content="Bokly - Premium European-style bookstore with curated collections and exceptional design." />
         <meta name="theme-color" content="#2c2c2c" />
       </Head>
       <body>

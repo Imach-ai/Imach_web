@@ -1,43 +1,69 @@
-/**
- * Header Module Styles
- * Sticky navigation with minimal, clean design
- */
+.searchForm {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  margin: 0;
+}
 
-.header {
-  position: sticky;
-  top: 0;
-  z-index: var(--z-dropdown);
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-border);
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.95);
+.searchInput {
+  width: 200px;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(29,29,31,0.06);
+  border-right: none;
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  font-size: var(--font-size-sm);
+  transition: box-shadow 0.25s ease, transform 0.15s ease, background 0.2s ease;
+  background: rgba(255,255,255,0.98);
+  color: var(--color-primary);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: rgba(29,29,31,0.12);
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+.searchBtn {
+  background: linear-gradient(135deg, rgba(29,29,31,0.9) 0%, rgba(29,29,31,0.75) 100%);
+  color: var(--color-white);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease, filter 0.18s ease;
+  padding: 0.9rem 1.2rem;
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.searchBtn:hover {
+  transform: translateY(-4px) scale(1.01);
+  filter: saturate(1.05);
+  box-shadow: 0 18px 42px rgba(0,0,0,0.12), 0 6px 14px rgba(0,0,0,0.08);
+}
+/* stray closing brace removed */
+
+.logo:hover {
+  transform: scale(1.03);
 }
 
 .container {
-  max-width: 1280px;
-  margin: 0 auto;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
   padding: 0 var(--space-lg);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 72px;
-  gap: var(--space-xl);
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  text-decoration: none;
-  color: var(--color-primary);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-lg);
-  white-space: nowrap;
-  transition: color var(--transition-base);
-}
-
-.logo:hover {
-  color: var(--color-accent);
+.logoImg {
+  height: 64px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
 }
 
 .logoIcon {
@@ -50,10 +76,11 @@
 
 .nav {
   display: flex;
-  gap: var(--space-2xl);
+  gap: var(--space-3xl);
   flex: 1;
   justify-content: center;
   margin: 0 var(--space-xl);
+  align-items: center;
 }
 
 .navLink {
@@ -71,19 +98,18 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--color-accent);
+  background-color: var(--color-primary);
   transition: width var(--transition-base);
 }
 
-.navLink:hover::after {
-  width: 100%;
-}
+.navLink:hover::after { width: 100%; }
 
 .actions {
   display: flex;
   align-items: center;
   gap: var(--space-lg);
   white-space: nowrap;
+  flex-direction: row;
 }
 
 .searchContainer {
@@ -98,29 +124,118 @@
 .searchInput {
   width: 200px;
   padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  transition: all var(--transition-base);
+  border: 1px solid rgba(29,29,31,0.06);
+  border-right: none;
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  background: rgba(255,255,255,0.98);
+  color: var(--color-primary);
+  transition: box-shadow 0.25s ease, transform 0.15s ease, background 0.2s ease;
+
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(44, 44, 44, 0.1);
+  border-color: rgba(29,29,31,0.12);
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
 }
 
 .searchBtn {
-  background: none;
+  background: linear-gradient(135deg, rgba(29,29,31,0.9) 0%, rgba(29,29,31,0.75) 100%);
+  color: var(--color-white);
+  padding: 0.9rem 1.2rem;
   border: none;
-  font-size: 1.25rem;
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  transition: opacity var(--transition-base);
-  padding: var(--space-sm);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease, filter 0.18s ease;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
 }
 
 .searchBtn:hover {
-  opacity: 0.7;
+  transform: translateY(-4px) scale(1.01);
+  filter: saturate(1.05);
+  box-shadow: 0 18px 42px rgba(0,0,0,0.12), 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.searchBtn:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+/* Newsletter form styles reused for header */
+.newsletterForm {
+  display: flex;
+  gap: 0;
+  margin: 0;
+  align-items: center;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 5px;
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(29, 29, 31, 0.06),
+              0 2px 8px rgba(29, 29, 31, 0.04),
+              inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(29, 29, 31, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletterInput {
+  flex: 1;
+  width: 240px;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.newsletterInput:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.newsletterSubmit {
+  padding: 0.7rem 1.4rem;
+  background: rgba(29, 29, 31, 0.08);
+  color: var(--color-primary);
+  border: 1px solid rgba(29, 29, 31, 0.12);
+  font-size: 0.85rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(29, 29, 31, 0.04);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.newsletterSubmit:hover {
+  transform: translateY(-1px);
+  background: rgba(29, 29, 31, 0.14);
+  box-shadow: 0 4px 16px rgba(29, 29, 31, 0.08);
+  border-color: rgba(29, 29, 31, 0.18);
+}
+
+.newsletterSubmit:active {
+  transform: translateY(0);
+  background: rgba(29, 29, 31, 0.12);
+  box-shadow: 0 2px 6px rgba(29, 29, 31, 0.06);
 }
 
 .authLink {

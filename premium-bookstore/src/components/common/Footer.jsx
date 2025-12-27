@@ -21,7 +21,11 @@ export default function Footer() {
       <div className={styles.container}>
         {/* Brand Section */}
         <div className={styles.column}>
-          <h3 className={styles.heading}>PageTurner</h3>
+          <img 
+            src="/logo.png"
+            alt="Bokly Logo"
+            className={styles.logoImg}
+          />
           <p className={styles.description}>
             Discover extraordinary books and support independent literature.
             Premium curation, minimum friction.
@@ -43,10 +47,10 @@ export default function Footer() {
         <div className={styles.column}>
           <h4 className={styles.subheading}>Support</h4>
           <ul className={styles.linkList}>
-            <li><Link href="#help">Help & FAQs</Link></li>
-            <li><Link href="#shipping">Shipping Info</Link></li>
-            <li><Link href="#returns">Returns</Link></li>
-            <li><Link href="#track">Track Order</Link></li>
+            <li><Link href="/help-faqs">Help & FAQs</Link></li>
+            <li><Link href="/shipping">Shipping Info</Link></li>
+            <li><Link href="/returns">Returns</Link></li>
+            <li><Link href="/track-order">Track Order</Link></li>
           </ul>
         </div>
 
@@ -54,10 +58,10 @@ export default function Footer() {
         <div className={styles.column}>
           <h4 className={styles.subheading}>About</h4>
           <ul className={styles.linkList}>
-            <li><Link href="#about">About Us</Link></li>
-            <li><Link href="#press">Press</Link></li>
-            <li><Link href="#careers">Careers</Link></li>
-            <li><Link href="#contact">Contact</Link></li>
+            <li><Link href="/about">About Us</Link></li>
+            <li><Link href="/press">Press</Link></li>
+            <li><Link href="/careers">Careers</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
           </ul>
         </div>
       </div>
@@ -85,14 +89,14 @@ export default function Footer() {
       {/* Legal */}
       <div className={styles.legal}>
         <p className={styles.copyright}>
-          &copy; {currentYear} PageTurner. All rights reserved.
+          &copy; {currentYear} Bokly. All rights reserved.
         </p>
         <nav className={styles.legalLinks}>
-          <Link href="#privacy">Privacy</Link>
+          <Link href="/privacy">Privacy</Link>
           <span className={styles.separator}>·</span>
-          <Link href="#terms">Terms</Link>
+          <Link href="/terms">Terms</Link>
           <span className={styles.separator}>·</span>
-          <Link href="#cookies">Cookies</Link>
+          <Link href="/cookies">Cookies</Link>
         </nav>
       </div>
     </footer>

@@ -47,7 +47,7 @@ export default function ProductDetailPage({ book, relatedBooks }) {
   return (
     <>
       <Head>
-        <title>{book.title} by {book.author} | PageTurner</title>
+        <title>{book.title} by {book.author} | Bokly</title>
         <meta name="description" content={book.description} />
       </Head>
 

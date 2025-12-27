@@ -117,7 +117,7 @@
 }
 
 .stars {
-  color: #d4af37;
+  color: var(--color-primary);
   font-size: var(--font-size-lg);
   letter-spacing: 2px;
 }

@@ -1,20 +1,30 @@
 /**
  * About Page
- * Tells the story of PageTurner bookstore
+ * Tells the story of Bokly bookstore
  * 
  * Features:
- * - Company story and mission
- * - Team information
- * - Values and beliefs
- * - Statistics
+ * - Company story and mission with video background
+ * - Team information with animations
+ * - Values and beliefs with premium styling
+ * - Statistics with animated counters
  * - Call to action
  */
 
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import styles from './about.module.css';
 
 export default function About() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const values = [
     {
       title: 'Curated Selection',
@@ -66,16 +76,32 @@ export default function About() {
   return (
     <>
       <Head>
-        <title>About PageTurner - Premium Book Store</title>
-        <meta name="description" content="Learn about PageTurner, your trusted source for curated books since 2017." />
+        <title>About Bokly - Premium Book Store</title>
+        <meta name="description" content="Learn about Bokly, your trusted source for curated books since 2017." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <main className={styles.container}>
-        {/* Hero Section */}
+        {/* Premium Hero Section with Video Background */}
         <section className={styles.hero}>
+          {/* Video Background */}
+          <div className={styles.videoBg}>
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              className={styles.backgroundVideo}
+              poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'%3E%3Crect fill='%232c2c2c' width='1280' height='720'/%3E%3C/svg%3E"
+            >
+              <source src="/4866054-uhd_4096_2160_25fps.mp4" type="video/mp4" />
+              <source src="/4866054-uhd_4096_2160_25fps.mp4" type="video/webm" />
+            </video>
+            <div className={styles.videoBgOverlay}></div>
+          </div>
+
           <div className={styles.heroContent}>
-            <h1>About PageTurner</h1>
+            <h1 className={styles.heroTitle}>About Bokly</h1>
             <p className={styles.subtitle}>
               Connecting readers with exceptional books since 2017
             </p>
@@ -87,7 +113,7 @@ export default function About() {
           <div className={styles.sectionContent}>
             <h2>Our Story</h2>
             <p>
-              PageTurner was founded in 2017 with a simple vision: to make great books accessible to everyone. 
+              Bokly was founded in 2017 with a simple vision: to make great books accessible to everyone. 
               What started as a passion project by a small group of book enthusiasts has grown into a trusted 
               platform serving readers across 45 countries.
             </p>
@@ -165,7 +191,7 @@ export default function About() {
 
         {/* Why Choose Us */}
         <section className={styles.section}>
-          <h2>Why Choose PageTurner?</h2>
+          <h2>Why Choose Bokly?</h2>
           <div className={styles.featuresList}>
             <div className={styles.featureItem}>
               <span className={styles.checkmark}>✓</span>

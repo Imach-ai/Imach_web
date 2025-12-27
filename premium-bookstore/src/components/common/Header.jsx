@@ -11,30 +11,27 @@
  */
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useCart } from '@/utils/cartContext';
 import styles from './Header.module.css';
 
 export default function Header() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const { itemCount } = useCart();
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Navigate to search results page
-    if (searchQuery.trim()) {
-      window.location.href = `/books?search=${encodeURIComponent(searchQuery)}`;
-    }
-  };
+  const router = useRouter();
+  const [query, setQuery] = useState('');
 
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoIcon}>📚</span>
-          <span className={styles.logoText}>PageTurner</span>
+          <img 
+            src="/logo.png"
+            alt="Bokly Logo"
+            className={styles.logoImg}
+          />
         </Link>
 
         {/* Navigation */}
@@ -46,31 +43,6 @@ export default function Header() {
 
         {/* Right Actions */}
         <div className={styles.actions}>
-          {/* Search */}
-          <div className={styles.searchContainer}>
-            {isSearchOpen ? (
-              <form onSubmit={handleSearch} className={styles.searchForm}>
-                <input
-                  type="text"
-                  placeholder="Search books..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  autoFocus
-                  className={styles.searchInput}
-                  aria-label="Search books"
-                />
-              </form>
-            ) : (
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className={styles.searchBtn}
-                aria-label="Open search"
-              >
-                🔍
-              </button>
-            )}
-          </div>
-
           {/* Login */}
           <Link href="/auth/login" className={styles.authLink}>
             Login
@@ -88,6 +60,37 @@ export default function Header() {
               </span>
             )}
           </Link>
+
+          {/* Header search form (functional) */}
+          <div className={styles.searchContainer}>
+            <form
+              className={styles.newsletterForm}
+              onSubmit={(e) => {
+                e.preventDefault();
+                const q = query.trim();
+                if (q.length === 0) {
+                  router.push('/books');
+                } else {
+                  const params = new URLSearchParams();
+                  params.set('search', q);
+                  router.push(`/books?${params.toString()}`);
+                }
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Search books..."
+                required
+                className={styles.newsletterInput}
+                aria-label="Search books"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <button type="submit" className={styles.newsletterSubmit} aria-label="Search">
+                Search
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </header>

@@ -1,6 +1,6 @@
 /**
  * Contact Page
- * Allows users to get in touch with PageTurner
+ * Allows users to get in touch with Bokly
  * 
  * Features:
  * - Contact form with validation
@@ -10,12 +10,13 @@
  * - Location information
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from './contact.module.css';
 
 export default function Contact() {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,11 +27,19 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const contactMethods = [
     {
       icon: '📧',
       title: 'Email',
-      value: 'support@pageturner.com',
+      value: 'support@bokly.com',
       description: 'Response within 24 hours'
     },
     {
@@ -68,7 +77,7 @@ export default function Contact() {
     },
     {
       question: 'Are your books new or used?',
-      answer: 'All books sold through PageTurner are brand new unless specifically marked as "pre-owned" or "classic editions".'
+      answer: 'All books sold through Bokly are brand new unless specifically marked as "pre-owned" or "classic editions".'
     },
     {
       question: 'How can I track my order?',
@@ -76,7 +85,7 @@ export default function Contact() {
     },
     {
       question: 'Do you offer wholesale pricing?',
-      answer: 'Yes! For bulk orders or wholesale inquiries, please contact our corporate sales team at corporate@pageturner.com'
+      answer: 'Yes! For bulk orders or wholesale inquiries, please contact our corporate sales team at corporate@bokly.com'
     }
   ];
 
@@ -148,16 +157,21 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact PageTurner - Get In Touch</title>
-        <meta name="description" content="Contact PageTurner for customer support, questions, or inquiries. We're here to help!" />
+        <title>Contact Bokly - Get In Touch</title>
+        <meta name="description" content="Contact Bokly for customer support, questions, or inquiries. We're here to help!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <main className={styles.container}>
-        {/* Hero Section */}
+        {/* Premium Hero Section with Video Background */}
         <section className={styles.hero}>
+          {/* Video Background */}
+          <div className={styles.videoBg}>
+            <div className={styles.videoBgOverlay}></div>
+          </div>
+
           <div className={styles.heroContent}>
-            <h1>Get In Touch</h1>
+            <h1 className={styles.heroTitle}>Get In Touch</h1>
             <p className={styles.subtitle}>
               We'd love to hear from you. Reach out anytime!
             </p>

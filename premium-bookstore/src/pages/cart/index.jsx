@@ -27,7 +27,7 @@ export default function CartPage() {
   return (
     <>
       <Head>
-        <title>Shopping Cart | PageTurner</title>
+        <title>Shopping Cart | Bokly</title>
         <meta name="description" content="Review and checkout your shopping cart" />
       </Head>
 
