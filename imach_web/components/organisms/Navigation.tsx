@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Moon, Sun } from 'lucide-react'
 import Button from '@/components/atoms/Button'
 import { scrollToSection } from '@/lib/utils'
+import { useUIStore } from '@/lib/store'
 
 const navItems = [
   { label: 'Services', href: 'services' },
@@ -16,23 +17,43 @@ const navItems = [
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { theme, setTheme, setIsThemeTransitioning } = useUIStore()
   
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
     
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    // Apply theme to document with smooth transition
+    if (theme === 'light') {
+      document.documentElement.classList.add('light')
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+      document.documentElement.classList.remove('light')
+    }
+  }, [theme])
+
+  const toggleTheme = () => {
+    setIsThemeTransitioning(true)
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
   
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      transition={{ type: 'spring', stiffness: 100, damping: 25 }}
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 backdrop-blur-md ${
         isScrolled
-          ? 'bg-[#0A0B14]/80 backdrop-blur-lg border-b border-white/10'
+          ? theme === 'dark' 
+            ? 'bg-[#0A0B14]/30 border-b border-white/10'
+            : 'bg-white/30 border-b border-gray-200'
           : 'bg-transparent'
       }`}
     >
@@ -41,13 +62,15 @@ export default function Navigation() {
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
               <span className="text-white font-bold text-xl">I</span>
             </div>
-            <span className="text-xl font-bold text-white">Imach.ai</span>
+            <span className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Imach.ai</span>
           </motion.div>
           
           {/* Desktop Navigation */}
@@ -56,7 +79,11 @@ export default function Navigation() {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                className={`transition-colors text-sm font-medium ${
+                  theme === 'dark' 
+                    ? 'text-gray-300 hover:text-white'
+                    : 'text-black hover:text-gray-700'
+                }`}
               >
                 {item.label}
               </button>
@@ -65,6 +92,20 @@ export default function Navigation() {
           
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
+            <motion.button
+              onClick={toggleTheme}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="p-2 transition-all"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5 text-yellow-400" />
+              ) : (
+                <Moon className="w-5 h-5 text-indigo-600" />
+              )}
+            </motion.button>
             <Button variant="ghost" size="sm">
               Sign In
             </Button>
@@ -76,7 +117,11 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-gray-300 hover:text-white"
+            className={`md:hidden p-2 transition-colors ${
+              theme === 'dark'
+                ? 'text-gray-300 hover:text-white'
+                : 'text-black hover:text-gray-700'
+            }`}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -90,7 +135,12 @@ export default function Navigation() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#1F2937] border-t border-white/10"
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className={`md:hidden border-t ${
+              theme === 'dark'
+                ? 'bg-[#1F2937] border-white/10'
+                : 'bg-white border-gray-200'
+            }`}
           >
             <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
@@ -100,12 +150,31 @@ export default function Navigation() {
                     scrollToSection(item.href)
                     setIsMobileMenuOpen(false)
                   }}
-                  className="block w-full text-left text-gray-300 hover:text-white transition-colors py-2"
+                  className={`block w-full text-left transition-colors py-2 ${
+                    theme === 'dark'
+                      ? 'text-gray-300 hover:text-white'
+                      : 'text-black hover:text-gray-700'
+                  }`}
                 >
                   {item.label}
                 </button>
               ))}
               <div className="pt-4 space-y-2">
+                <button
+                  onClick={toggleTheme}
+                  className={`w-full flex items-center justify-between p-3 rounded-lg border transition-all ${
+                    theme === 'dark'
+                      ? 'bg-white/5 border-white/10 hover:bg-white/10 text-gray-300 hover:text-white'
+                      : 'bg-gray-100 border-gray-200 hover:bg-gray-200 text-black hover:text-gray-700'
+                  }`}
+                >
+                  <span className="text-sm font-medium">Theme</span>
+                  {theme === 'dark' ? (
+                    <Sun className="w-5 h-5 text-yellow-400" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-indigo-400" />
+                  )}
+                </button>
                 <Button variant="ghost" size="sm" className="w-full">
                   Sign In
                 </Button>

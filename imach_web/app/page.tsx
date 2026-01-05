@@ -1,6 +1,6 @@
 import Navigation from '@/components/organisms/Navigation'
 import Hero from '@/components/organisms/Hero'
-import ServicesSection from '@/components/organisms/ServicesSection'
+import AdvancedInspirationEngine from '@/components/organisms/AdvancedInspirationEngine'
 import TestimonialsSection from '@/components/organisms/TestimonialsSection'
 import BookingCalendar from '@/components/organisms/BookingCalendar'
 import PricingSection from '@/components/organisms/PricingSection'
@@ -9,10 +9,10 @@ import Chatbot from '@/components/organisms/Chatbot'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0A0B14]">
+    <main className="min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--background)' }}>
       <Navigation />
       <Hero />
-      <ServicesSection />
+      <AdvancedInspirationEngine />
       <TestimonialsSection />
       <BookingCalendar />
       <PricingSection />

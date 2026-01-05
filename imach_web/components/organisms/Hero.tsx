@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import Button from '@/components/atoms/Button'
 import { ArrowRight, Sparkles } from 'lucide-react'
@@ -10,10 +10,9 @@ const rotatingWords = ['Startups', 'Enterprises', 'Innovators', 'Scale-ups']
 
 export default function Hero() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const [enableParallax, setEnableParallax] = useState(false)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1440
-  const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 900
   
   const springConfig = { damping: 25, stiffness: 100 }
   const x = useSpring(mouseX, springConfig)
@@ -30,63 +29,80 @@ export default function Hero() {
   }, [])
   
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return
-      
-      const rect = heroRef.current.getBoundingClientRect()
-      const centerX = rect.left + rect.width / 2
-      const centerY = rect.top + rect.height / 2
-      
-      mouseX.set((e.clientX - centerX) / 25)
-      mouseY.set((e.clientY - centerY) / 25)
-    }
+    // Only enable parallax on large screens to reduce CPU usage
+    const mediaQuery = window.matchMedia('(min-width: 1024px)')
+    setEnableParallax(mediaQuery.matches)
     
-    window.addEventListener('mousemove', handleMouseMove)
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      setEnableParallax(e.matches)
+    }
+    mediaQuery.addEventListener('change', handleMediaChange)
+    
+    return () => mediaQuery.removeEventListener('change', handleMediaChange)
+  }, [])
+  
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!enableParallax || !heroRef.current) return
+    
+    const rect = heroRef.current.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+    
+    mouseX.set((e.clientX - centerX) / 30)
+    mouseY.set((e.clientY - centerY) / 30)
+  }, [enableParallax, mouseX, mouseY])
+  
+  useEffect(() => {
+    if (!enableParallax) return
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX, mouseY])
+  }, [enableParallax, handleMouseMove])
   
   return (
     <section
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0B14]"
     >
-      {/* Animated Gradient Background */}
+      {/* Simplified Animated Orbs */}
+      {enableParallax && (
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, #6366F1 0%, transparent 50%)',
+            x,
+            y,
+          }}
+        />
+      )}
+      
       <motion.div
-        className="absolute inset-0 opacity-30"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, #6366F1 0%, transparent 50%)',
-          x,
-          y,
+        className="absolute top-20 left-10 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl"
+        animate={{
+          x: [0, 30, 0],
+          y: [0, 50, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl"
+        animate={{
+          x: [0, -30, 0],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 22,
+          repeat: Infinity,
+          ease: 'easeInOut',
         }}
       />
       
-      {/* Particle System */}
-      <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-indigo-400 rounded-full"
-            initial={{
-              x: Math.random() * viewportWidth,
-              y: Math.random() * viewportHeight,
-              opacity: 0,
-            }}
-            animate={{
-              y: [null, Math.random() * viewportHeight],
-              opacity: [0, 0.5, 0],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Grid Pattern */}
+      {/* Simplified Grid Pattern */}
       <div 
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)`,
@@ -97,16 +113,16 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, type: 'spring', stiffness: 80, damping: 20 }}
           className="space-y-8"
         >
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 300, damping: 30 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10"
           >
             <Sparkles className="w-4 h-4 text-indigo-400" />
@@ -123,7 +139,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, type: 'spring', stiffness: 100, damping: 15 }}
               className="inline-block gradient-text"
             >
               {rotatingWords[currentWordIndex]}
@@ -137,9 +153,9 @@ export default function Hero() {
           
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, type: 'spring', stiffness: 80, damping: 20 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Button
@@ -162,9 +178,9 @@ export default function Hero() {
           
           {/* Trust Indicators */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, type: 'spring', stiffness: 80, damping: 20 }}
             className="pt-12"
           >
             <p className="text-sm text-gray-500 mb-6">Powering Innovation at</p>
@@ -183,19 +199,15 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
+        transition={{ delay: 0.8, duration: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          transition={{ duration: 2.5, repeat: Infinity }}
           className="w-6 h-10 border-2 border-white/20 rounded-full flex items-start justify-center p-2"
         >
-          <motion.div
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-white rounded-full"
-          />
+          <div className="w-1.5 h-1.5 bg-white rounded-full" />
         </motion.div>
       </motion.div>
     </section>

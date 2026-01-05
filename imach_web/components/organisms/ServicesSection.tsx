@@ -116,9 +116,10 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 80, damping: 20 }}
           className="text-center mb-20"
         >
           <h2 className="text-5xl sm:text-6xl font-bold text-white mb-6">
@@ -136,6 +137,7 @@ export default function ServicesSection() {
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 80, damping: 20 }}
             className="lg:col-span-4 space-y-4"
           >
             {services.map((service, index) => {
@@ -147,9 +149,11 @@ export default function ServicesSection() {
                   key={service.id}
                   onClick={() => {
                     setSelectedService(index)
+                    setSelectedService(index)
                     setUploadedImages([])
                   }}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 30 } }}
+                  whileTap={{ scale: 0.98 }}
                   className={`w-full text-left p-6 rounded-2xl border-2 transition-all duration-300 ${
                     isSelected
                       ? `border-white/50 bg-gradient-to-br ${service.gradient} bg-opacity-10`
@@ -179,6 +183,7 @@ export default function ServicesSection() {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 80, damping: 20 }}
             className="lg:col-span-8"
           >
             <div className="rounded-3xl border border-white/10 p-8 lg:p-12 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm">
@@ -283,23 +288,77 @@ export default function ServicesSection() {
 
         {/* Features Below */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
         >
-          <div className="rounded-2xl border border-white/10 p-6 bg-white/5 hover:border-white/20 transition-colors">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 15,
+                },
+              },
+            }}
+            whileHover={{ y: -4 }}
+            className="rounded-2xl border border-white/10 p-6 bg-white/5 hover:border-white/20 transition-colors"
+          >
             <h4 className="text-lg font-bold text-white mb-2">500+</h4>
             <p className="text-gray-400">Companies transformed</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 p-6 bg-white/5 hover:border-white/20 transition-colors">
+          </motion.div>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 15,
+                },
+              },
+            }}
+            whileHover={{ y: -4 }}
+            className="rounded-2xl border border-white/10 p-6 bg-white/5 hover:border-white/20 transition-colors"
+          >
             <h4 className="text-lg font-bold text-white mb-2">$50M+</h4>
             <p className="text-gray-400">Client value generated</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 p-6 bg-white/5 hover:border-white/20 transition-colors">
+          </motion.div>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 15,
+                },
+              },
+            }}
+            whileHover={{ y: -4 }}
+            className="rounded-2xl border border-white/10 p-6 bg-white/5 hover:border-white/20 transition-colors"
+          >
             <h4 className="text-lg font-bold text-white mb-2">99.9%</h4>
             <p className="text-gray-400">System uptime</p>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

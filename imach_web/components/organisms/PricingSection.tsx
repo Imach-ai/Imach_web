@@ -101,7 +101,33 @@ export default function PricingSection() {
   }
   
   return (
-    <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#0A0B14] relative">
+    <section id="pricing" className="py-32 px-4 sm:px-6 lg:px-8 bg-[#0A0B14] relative overflow-hidden">
+      {/* Animated Background Orbs */}
+      <motion.div
+        className="absolute top-0 left-20 w-96 h-96 bg-indigo-500/8 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.2, 0.3, 0.2],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-20 w-96 h-96 bg-purple-500/8 rounded-full blur-3xl"
+        animate={{
+          scale: [1.1, 1, 1.1],
+          opacity: [0.2, 0.3, 0.2],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -113,9 +139,10 @@ export default function PricingSection() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 80, damping: 20 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
@@ -175,7 +202,21 @@ export default function PricingSection() {
         </motion.div>
         
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+        >
           {pricingTiers.map((tier, index) => {
             const Icon = tier.icon
             const displayPrice = isAnnual ? tier.basePrice * 0.8 : tier.basePrice
@@ -183,15 +224,21 @@ export default function PricingSection() {
             return (
               <motion.div
                 key={tier.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ 
+                  delay: index * 0.1,
+                  type: 'spring',
+                  stiffness: 80,
+                  damping: 20,
+                }}
+                whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300, damping: 30 } }}
                 className={`relative rounded-2xl p-8 ${
                   tier.recommended
                     ? 'bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border-2 border-indigo-500/50'
                     : 'bg-white/5 border border-white/10'
-                } hover:border-indigo-500/50 transition-all duration-300 hover-lift`}
+                } hover:border-indigo-500/50 transition-all duration-300`}
               >
                 {tier.recommended && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -246,13 +293,14 @@ export default function PricingSection() {
               </motion.div>
             )
           })}
-        </div>
+        </motion.div>
         
         {/* Custom Solutions CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 80, damping: 20 }}
           className="mt-16 text-center"
         >
           <div className="inline-block px-8 py-6 rounded-2xl bg-white/5 border border-white/10">

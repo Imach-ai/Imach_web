@@ -86,8 +86,36 @@ export default function BookingCalendar() {
   const monthName = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })
 
   return (
-    <section className="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0A0B14] to-[#1a1a2e]">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0A0B14] to-[#1a1a2e] relative overflow-hidden">
+      {/* Animated Background Orbs */}
+      <motion.div
+        className="absolute top-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.5, 0.3],
+          y: [0, 50, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+        animate={{
+          scale: [1.3, 1, 1.3],
+          opacity: [0.3, 0.5, 0.3],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

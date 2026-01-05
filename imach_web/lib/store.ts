@@ -10,6 +10,9 @@ interface UIState {
   
   theme: 'dark' | 'light'
   setTheme: (theme: 'dark' | 'light') => void
+  
+  isThemeTransitioning: boolean
+  setIsThemeTransitioning: (value: boolean) => void
 }
 
 export const useUIStore = create<UIState>()(
@@ -23,6 +26,9 @@ export const useUIStore = create<UIState>()(
       
       theme: 'dark',
       setTheme: (theme) => set({ theme }),
+      
+      isThemeTransitioning: false,
+      setIsThemeTransitioning: (value) => set({ isThemeTransitioning: value }),
     }),
     {
       name: 'imach-ui-storage',
